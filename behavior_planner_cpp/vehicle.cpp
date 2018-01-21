@@ -49,10 +49,28 @@ vector<Vehicle> Vehicle::choose_next_state(map<int, vector<Vehicle>> predictions
        cost.cpp, computes the cost for a trajectory.
     */
 
-    //TODO: Your solution here.
+    //TODO: Your solution here. DONE
+    vector<string> states = successor_states();
+    vector<float> costs;
+    vector<vector<Vehicle>> final_trajectories;
+    for(int i = 0; i < states.size(); i++) {
+        // generate a rough idea of what trajectory we would
+        // follow IF we chose this state.
+        vector<Vehicle> trajectory = generate_trajectory(states[i], predictions);
+        if(!trajectory.empty()) {
+            // calculate the "cost" associated with that trajectory.
+            float cost = calculate_cost(*this, predictions, trajectory);
+            costs.push_back(cost);
+            final_trajectories.push_back(trajectory);
+        }
+    }
 
-    //TODO: Change return value here:
-    return generate_trajectory("KL", predictions);
+    // Find the minimum cost state.
+    vector<float>::iterator it = min_element(costs.begin(), costs.end());
+    int index = distance(costs.begin(), it);
+
+    //TODO: Change return value here: DONE
+    return final_trajectories[index];
 }
 
 vector<string> Vehicle::successor_states() {
