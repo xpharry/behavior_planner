@@ -1,5 +1,9 @@
 # behavior_planner
 
+## Finite State Machine
+
+![](./FiniteStateMachine.png)
+
 ## Behavior Planning Pseudocode
 
 One way to implement a transition function is by generating rough trajectories for each accessible "next state" and then finding the best. To "find the best" we generally use cost functions. We can then figure out how costly each rough trajectory is and then select the state with the lowest cost trajectory.
